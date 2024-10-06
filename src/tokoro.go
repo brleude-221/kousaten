@@ -15,12 +15,29 @@ type Crossroad struct {
 	FirstIsRed    bool // Whether the first color is red (otherwise green)
 }
 
+// Person represents a person crossing the road
+type Person struct {
+	Speed      int  // Crossing speed in seconds
+	Location   Crossroad // Person's current location
+	OrientationIsRight bool // Whether orientation is right (otherwise up)
+}
+
 // Board represents the game board with size and crossroad details
 type Board struct {
 	Size  int
 	Grid  [][]Crossroad
 	Start Crossroad
 	End   Crossroad
+}
+
+// NewPerson creates a new person with random speed and a given location and orientation
+func NewPerson(location Crossroad, orientationIsRight bool) Person {
+	speed := rand.Intn(3) + 3 // Random crossing speed between 3 and 5 seconds
+	return Person{
+		Speed:      speed,
+		Location:   location,
+		OrientationIsRight: orientationIsRight,
+	}
 }
 
 // NewCrossroad creates a crossroad with random light timings at given coordinates
@@ -105,12 +122,23 @@ func (b *Board) DisplayBoard() {
 		}
 	}
 }
+// DisplayPerson prints the person's details: location, speed, and orientation
+func DisplayPerson(person Person) {
+	fmt.Printf("\nPerson at Start Point: (%d, %d)\n", person.Location.X, person.Location.Y)
+	fmt.Printf("Crossing Speed: %ds, Orientation: %s\n", person.Speed, map[bool]string{true: "Right", false: "Up"}[person.OrientationIsRight])
+}
 
 func main() {
 	// Create a board of size 10x10 (can be changed as needed)
 	board := NewBoard(10)
 
-	// Display the generated board and crossroad details
+  // Display the generated board and crossroad details
 	board.DisplayBoard()
-}
+
+	// Create a person at the start location with orientation right (can be changed as needed)
+	person := NewPerson(board.Start, true)
+
+  // Display person details using the new function
+	DisplayPerson(person)
+	}
 
