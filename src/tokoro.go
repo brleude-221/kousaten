@@ -25,8 +25,8 @@ type Board struct {
 
 // NewCrossroad creates a crossroad with random light timings at given coordinates
 func NewCrossroad(x, y int) Crossroad {
-	red := rand.Intn(10) + 5    // Random red light duration between 5 and 15 seconds
-	green := rand.Intn(10) + 5  // Random green light duration between 5 and 15 seconds
+	red := rand.Intn(10) + 6    // Random red light duration between 5 and 15 seconds
+	green := rand.Intn(10) + 6  // Random green light duration between 5 and 15 seconds
 	firstIsRed := rand.Intn(2) == 0             // Randomly decide if the first cycle starts with red or green
 
   var firstDuration int
